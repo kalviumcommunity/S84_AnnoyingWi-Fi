@@ -1,0 +1,19 @@
+{
+  "name": "s84_annoyingwi-fi",
+  "version": "1.0.0",
+  "description": "Welcome to the **Most Annoying Wi-Fi Names** project! Ever seen hilarious Wi-Fi names like `It Hurts When IP` or `Pretty Fly for a Wi-Fi`? This project lets you track and share them! 🚀",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kalviumcommunity/S84_AnnoyingWi-Fi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kalviumcommunity/S84_AnnoyingWi-Fi/issues"
+  },
+  "homepage": "https://github.com/kalviumcommunity/S84_AnnoyingWi-Fi#readme"
+}
