@@ -4,7 +4,7 @@
   "description": "Welcome to the **Most Annoying Wi-Fi Names** project! Ever seen hilarious Wi-Fi names like `It Hurts When IP` or `Pretty Fly for a Wi-Fi`? This project lets you track and share them! 🚀",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"No tests implemented yet\""
   },
   "repository": {
     "type": "git",
