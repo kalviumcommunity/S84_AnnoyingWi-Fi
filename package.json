@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kalviumcommunity/S84_AnnoyingWi-Fi/issues"
   },
-  "homepage": "https://github.com/kalviumcommunity/S84_AnnoyingWi-Fi#readme"
+  "homepage": "https://github.com/kalviumcommunity/S84_AnnoyingWi-Fi#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
