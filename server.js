@@ -10,4 +10,7 @@ app.get("/ping", (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+}).on('error', (err) => {
+  console.error('Failed to start server:', err);
+  process.exit(1);
 });
