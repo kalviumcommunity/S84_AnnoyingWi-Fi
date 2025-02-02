@@ -8,9 +8,15 @@ app.get("/ping", (req, res) => {
   res.send("pong");
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-}).on('error', (err) => {
-  console.error('Failed to start server:', err);
-  process.exit(1);
+app.get("/", (req, res) => {
+  res.send("go to /ping");
 });
+
+app
+  .listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  })
+  .on("error", (err) => {
+    console.error("Failed to start server:", err);
+    process.exit(1);
+  });
