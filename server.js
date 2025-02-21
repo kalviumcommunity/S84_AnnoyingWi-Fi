@@ -13,7 +13,6 @@ MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     console.log("Connected to Database");
     dbStatus = "Connected";
     const db = client.db("annoying-wifi-names");
-    // You can add more database operations here
   })
   .catch((error) => {
     console.error("Failed to connect to Database:", error);
