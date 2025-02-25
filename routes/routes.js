@@ -1,23 +1,27 @@
 const express = require("express");
 const router = express.Router();
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 const uri = process.env.MONGODB_URI;
-let db;
 
-MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then((client) => {
-    db = client.db("annoying-wifi-names");
-  })
-  .catch((error) => {
-    console.error("Failed to connect to Database:", error);
-  });
+mongoose
+  .connect(uri)
+  .then(() => console.log("Connected to Database"))
+  .catch((error) => console.error("Failed to connect to Database:", error));
+
+const wifiNameSchema = new mongoose.Schema({
+  name: String,
+  // Add other fields as necessary
+});
+
+const WifiName = mongoose.model("WifiName", wifiNameSchema);
 
 // Create
 router.post("/wifi-names", async (req, res) => {
   try {
-    const result = await db.collection("wifi-names").insertOne(req.body);
+    const wifiName = new WifiName(req.body);
+    const result = await wifiName.save();
     res.status(201).send(result);
   } catch (error) {
     res.status(500).send(error);
@@ -27,7 +31,7 @@ router.post("/wifi-names", async (req, res) => {
 // Read
 router.get("/wifi-names", async (req, res) => {
   try {
-    const wifiNames = await db.collection("wifi-names").find().toArray();
+    const wifiNames = await WifiName.find();
     res.status(200).send(wifiNames);
   } catch (error) {
     res.status(500).send(error);
@@ -37,12 +41,9 @@ router.get("/wifi-names", async (req, res) => {
 // Update
 router.put("/wifi-names/:id", async (req, res) => {
   try {
-    const result = await db
-      .collection("wifi-names")
-      .updateOne(
-        { _id: new MongoClient.ObjectID(req.params.id) },
-        { $set: req.body }
-      );
+    const result = await WifiName.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send(error);
@@ -52,9 +53,7 @@ router.put("/wifi-names/:id", async (req, res) => {
 // Delete
 router.delete("/wifi-names/:id", async (req, res) => {
   try {
-    const result = await db
-      .collection("wifi-names")
-      .deleteOne({ _id: new MongoClient.ObjectID(req.params.id) });
+    const result = await WifiName.findByIdAndDelete(req.params.id);
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send(error);
