@@ -1,0 +1,15 @@
+{
+  "version": "1",
+  "name": "ASAP_Project",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ],
+  "requests": [
+    "Create Wi-Fi Name.bru",
+    "Get All Wi-Fi Names.bru",
+    "Update Wi-Fi Name.bru",
+    "Delete Wi-Fi Name.bru"
+  ]
+}

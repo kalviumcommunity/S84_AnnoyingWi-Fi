@@ -1,0 +1,13 @@
+meta {
+  name: Update Wi-Fi Name
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3000/api/wifi-names/{id}
+  body: json({
+    "name": "Updated Wi-Fi Name"
+  })
+  auth: none
+}
