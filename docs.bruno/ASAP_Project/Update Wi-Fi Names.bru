@@ -4,8 +4,12 @@ meta {
   seq: 6
 }
 
-get {
-  url: http://localhost:3000/api/wifi-names/
-  body: none
+put {
+  url: http://localhost:3000/api/wifi-names/67bff67ec81cb837fbe7a99d
+  body: json
   auth: none
+}
+
+body:json {
+  {"name":"HarshitKaPuranaWifi"}
 }

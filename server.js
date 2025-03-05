@@ -10,7 +10,7 @@ app.use(express.json());
 app.use("/api", routes);
 
 app.get("/ping", (req, res) => {
-  res.send("pong");
+  res.json({ message: "pong" });
 });
 
 app.listen(port, () => {
