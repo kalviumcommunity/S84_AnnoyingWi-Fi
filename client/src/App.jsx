@@ -177,7 +177,7 @@ function App() {
             />
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition duration-200"
+              className="bg-blue-600 hover:bg-blue-700 text-black font-medium py-2 px-6 rounded-md transition duration-200"
             >
               Add Name
             </button>
