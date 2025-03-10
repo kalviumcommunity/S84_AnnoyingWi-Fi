@@ -22,3 +22,7 @@ Contribute, have fun, and share your weirdest Wi-Fi discoveries! 😆🎉
 
 ## Render Link
 [Render](https://s84-annoyingwi-fi.onrender.com)
+
+
+## CloudFlare Link
+[CloudFlare](https://annoyingwifi84.pages.dev/)
