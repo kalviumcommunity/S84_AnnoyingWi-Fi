@@ -26,7 +26,6 @@ const WiFiName = ({ name }) => {
 
 WiFiName.propTypes = {
     name: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired
 };
 
 export default WiFiName;
