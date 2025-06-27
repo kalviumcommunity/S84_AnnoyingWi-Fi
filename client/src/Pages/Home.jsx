@@ -70,20 +70,21 @@ function Home() {
         </div>
         {/*....................................................................................*/}
         {/* Add New Wi-Fi Name Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow-md p-6 mb-8 border border-blue-100">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-gray-800">
+            <h2 className="text-xl font-bold text-blue-800">
               Wi-Fi Names Collection
             </h2>
             <Link
               to="/add-wifi"
-              className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-md transition duration-200"
+              className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-6 rounded-md transition duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Add New WiFi Name
             </Link>
           </div>
-          <p className="text-gray-600">
-            Click "Add New WiFi Name" to contribute to our collection of funny and annoying WiFi names!
+          <p className="text-blue-700">
+            Click "Add New WiFi Name" to contribute to our collection of funny
+            and annoying WiFi names!
           </p>
         </div>
         {/*.....................................................................................*/}
