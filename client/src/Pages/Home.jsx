@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import WiFiList from "../components/WifiList.jsx";
 
 function Home() {
   const [wifiNames, setWifiNames] = useState([]);
-  const [newWifiName, setNewWifiName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -26,7 +26,7 @@ function Home() {
       const data = await response.json();
       setWifiNames(data);
       setError(null);
-    } catch (err) {
+    } catch (error) {
       setError("Failed to load wifi names. Using sample data instead.");
       setWifiNames([
         { _id: "1", name: "It Hurts When IP" },
@@ -35,36 +35,9 @@ function Home() {
         { _id: "4", name: "Bill Wi the Science Fi" },
         { _id: "5", name: "The LAN Before Time" },
       ]);
+      console.error("Error fetching WiFi names:", error);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!newWifiName.trim()) return;
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/wifi-names`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name: newWifiName }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to add wifi name");
-      }
-
-      const data = await response.json();
-      setWifiNames([...wifiNames, data]);
-      setNewWifiName("");
-    } catch (err) {
-      alert("Failed to add wifi name. Please try again.");
     }
   };
 
@@ -98,28 +71,20 @@ function Home() {
         {/*....................................................................................*/}
         {/* Add New Wi-Fi Name Section */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">
-            Add a New Wi-Fi Name
-          </h2>
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row gap-4"
-          >
-            <input
-              type="text"
-              value={newWifiName}
-              onChange={(e) => setNewWifiName(e.target.value)}
-              placeholder="Enter a funny Wi-Fi name"
-              className="text-black flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition duration-200"
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold text-gray-800">
+              Wi-Fi Names Collection
+            </h2>
+            <Link
+              to="/add-wifi"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-6 rounded-md transition duration-200"
             >
-              Add Name
-            </button>
-          </form>
+              Add New WiFi Name
+            </Link>
+          </div>
+          <p className="text-gray-600">
+            Click "Add New WiFi Name" to contribute to our collection of funny and annoying WiFi names!
+          </p>
         </div>
         {/*.....................................................................................*/}
         {/* Wi-Fi Names List Section - now using WiFiList component */}
