@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import WiFiList from "../components/WifiList.jsx";
+import WiFiList from "../components/WifiList.jsx"; // importing the WiFiList component
 
 function Home() {
   const [wifiNames, setWifiNames] = useState([]);
@@ -11,7 +11,7 @@ function Home() {
   useEffect(() => {
     fetchWifiNames();
   }, []);
-
+// Fetch WiFi names from the API
   const fetchWifiNames = async () => {
     try {
       console.log("Fetching Wifi Names");
@@ -29,6 +29,7 @@ function Home() {
       setError(null);
     } catch (error) {
       setError("Failed to load wifi names. Using sample data instead.");
+// Sample data if the API fails
       setWifiNames([
         { _id: "1", name: "It Hurts When IP" },
         { _id: "2", name: "Pretty Fly for a Wi-Fi" },
@@ -42,7 +43,7 @@ function Home() {
     }
   };
 
-  // Delete WiFi name
+// Delete WiFi name
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
@@ -59,7 +60,7 @@ function Home() {
     }
   };
 
-  // Edit WiFi name
+  // Edit WiFi name with respective ID
   const handleEdit = (id) => {
     navigate(`/edit-wifi/${id}`);
   };
