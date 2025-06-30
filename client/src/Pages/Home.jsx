@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import WiFiList from "../components/WifiList.jsx";
+import { Link, useNavigate } from "react-router-dom";
+import WiFiList from "../components/WifiList.jsx"; // importing the WiFiList component
 
 function Home() {
   const [wifiNames, setWifiNames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchWifiNames();
   }, []);
-
+// Fetch WiFi names from the API
   const fetchWifiNames = async () => {
     try {
       console.log("Fetching Wifi Names");
@@ -28,6 +29,7 @@ function Home() {
       setError(null);
     } catch (error) {
       setError("Failed to load wifi names. Using sample data instead.");
+// Sample data if the API fails
       setWifiNames([
         { _id: "1", name: "It Hurts When IP" },
         { _id: "2", name: "Pretty Fly for a Wi-Fi" },
@@ -39,6 +41,28 @@ function Home() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+// Delete WiFi name
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/wifi-names/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) throw new Error("Failed to delete WiFi name");
+      // Refresh list after delete
+      fetchWifiNames();
+    } catch (err) {
+      alert(err.message || "Failed to delete WiFi name");
+    }
+  };
+
+  // Edit WiFi name with respective ID
+  const handleEdit = (id) => {
+    navigate(`/edit-wifi/${id}`);
   };
 
   return (
@@ -89,7 +113,13 @@ function Home() {
         </div>
         {/*.....................................................................................*/}
         {/* Wi-Fi Names List Section - now using WiFiList component */}
-        <WiFiList wifiNames={wifiNames} isLoading={isLoading} error={error} />
+        <WiFiList
+          wifiNames={wifiNames}
+          isLoading={isLoading}
+          error={error}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+        />
         {/*......................................................................................*/}
         {/* Footer */}
         <footer className="mt-12 text-center text-gray-500 text-sm">
