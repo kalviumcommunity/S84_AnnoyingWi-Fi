@@ -9,7 +9,7 @@ const authRoutes = require("./routes/auth");
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
