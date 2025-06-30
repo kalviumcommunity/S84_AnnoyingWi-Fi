@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import WiFiList from "../components/WifiList.jsx";
 
 function Home() {
   const [wifiNames, setWifiNames] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchWifiNames();
@@ -39,6 +40,28 @@ function Home() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Delete WiFi name
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/wifi-names/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) throw new Error("Failed to delete WiFi name");
+      // Refresh list after delete
+      fetchWifiNames();
+    } catch (err) {
+      alert(err.message || "Failed to delete WiFi name");
+    }
+  };
+
+  // Edit WiFi name
+  const handleEdit = (id) => {
+    navigate(`/edit-wifi/${id}`);
   };
 
   return (
@@ -89,7 +112,13 @@ function Home() {
         </div>
         {/*.....................................................................................*/}
         {/* Wi-Fi Names List Section - now using WiFiList component */}
-        <WiFiList wifiNames={wifiNames} isLoading={isLoading} error={error} />
+        <WiFiList
+          wifiNames={wifiNames}
+          isLoading={isLoading}
+          error={error}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+        />
         {/*......................................................................................*/}
         {/* Footer */}
         <footer className="mt-12 text-center text-gray-500 text-sm">

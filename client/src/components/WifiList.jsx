@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';//Check for the correct prop types
 import WiFiName from './WiFiName';
 
-const WiFiList = ({ wifiNames, isLoading, error }) => {
+const WiFiList = ({ wifiNames, isLoading, error, onDelete, onEdit }) => {
+    const [deletingId, setDeletingId] = useState(null);
+
+    const handleDelete = async (id) => {
+        if (window.confirm('Are you sure you want to delete this Wi-Fi name?')) {
+            setDeletingId(id);
+            try {
+                await onDelete(id);
+            } catch (error) {
+                console.error('Delete failed:', error);
+            } finally {
+                setDeletingId(null);
+            }
+        }
+    };
+
+    const handleEdit = (id) => {
+        onEdit(id);
+    };
+
     return (
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
             <div className="bg-gradient-to-r from-purple-500 to-pink-500 py-4 px-6">
@@ -30,7 +49,13 @@ const WiFiList = ({ wifiNames, isLoading, error }) => {
                 ) : (
                     <ul className="divide-y divide-gray-200">
                         {wifiNames.map((wifi) => (
-                            <WiFiName key={wifi._id} {...wifi} />
+                            <WiFiName 
+                                key={wifi._id} 
+                                {...wifi} 
+                                onEdit={() => handleEdit(wifi._id)}
+                                onDelete={() => handleDelete(wifi._id)}
+                                isDeleting={deletingId === wifi._id}
+                            />
                         ))}
                     </ul>
                 )}
@@ -42,7 +67,9 @@ const WiFiList = ({ wifiNames, isLoading, error }) => {
 WiFiList.propTypes = {
     wifiNames: PropTypes.array.isRequired,
     isLoading: PropTypes.bool.isRequired,
-    error: PropTypes.string
+    error: PropTypes.string,
+    onDelete: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired
 };
 
 export default WiFiList;
