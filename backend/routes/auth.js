@@ -5,7 +5,7 @@ const router = express.Router();
 router.post('/login', (req, res) => {
   const { username } = req.body;
   if (!username) return res.status(400).json({ error: 'Username required' });
-  res.cookie('username', username, { httpOnly: true });
+  res.cookie('username', username, { httpOnly: true, signed: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict' });
   res.json({ message: 'Logged in', username });
 });
 
