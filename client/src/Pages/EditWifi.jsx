@@ -54,7 +54,7 @@ const EditWifi = () => {
       }
 
       const result = await response.json();
-      console.log("WiFi name updated:", result);
+      console.log("WiFi name updatted:", result);
 
       navigate("/");
     } catch (err) {
